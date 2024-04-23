@@ -1,0 +1,64 @@
+-- COUNT: Sirve para contar las veces que aparece un dato.
+-- SUM(x): Sirve para sumar datos de la columna x.
+--         solo es para columnas numericas.
+-- MAX(x): Encuentra el maximo de una columna.
+-- MIN(X): Encuentra el minimo.
+-- AVG(X): Encuentra el promedio de una columna.
+-- STDEV(X): Calcula la desviacion estandar.alter
+
+
+-- EJEMPLOS DE LAS FUNCIONES DE AGREGADO
+
+/* MOSTRAR EL TOTAL DE LOS PAGOS DE ENVIO QUE HA REALIZADO UN CLIENTE */
+USE Nwind;
+SELECT c.CustomerID, c.CompanyName, c.Country,
+(
+	SELECT SUM(o.Freight) FROM Orders o WHERE c.CustomerID = o.CustomerID
+) AS Monto_Envio
+FROM Customers c;
+
+/* SELECCIONAR LA CLAVE DEL PROVEEDOR, NOMBRE DEL PROVEEDOR Y
+	Y EL PRECIO DEL PRODUCTO MAS CARO DE TODOS LOS QUE VENDE.
+*/
+
+SELECT s.SupplierID, s.CompanyName,
+(
+	-- PRODUCTO MAS CARO --
+	SELECT MAX(p.UnitPrice) FROM Products p
+    WHERE p.SupplierID = s.SupplierID
+    
+) AS Producto_mas_caro,
+(
+	-- PRODUCTO MAS BARATO --
+	SELECT MIN(p.UnitPrice) FROM Products p
+    WHERE p.SupplierID = s.SupplierID
+    
+) AS Producto_mas_barato,
+(
+	-- PRODUCTO MAS BARATO --
+	SELECT AVG(p.UnitPrice) FROM Products p
+    WHERE p.SupplierID = s.SupplierID
+    
+) AS Promedio_Producto
+
+FROM Suppliers s WHERE s.CompanyName LIKE 'a%';
+
+
+
+
+
+/* EMPLEADO = EMPLOYEES, NOMBRE = FIRSTNAME, APELLIDO = LASTNAMNE
+Seleccionar la clave del empleado, el nombre completo del empleado
+(en una sola columna), el pais del empleado y la cantidad de 
+ordenes que registro en el ultimo trimestre de 1997.
+*/  -- Investigar como usar la funcion CONCAT de MYSQL
+
+SELECT e.EmployeeID, CONCAT(e.LastName, ' ', e.FirstName)
+AS Empleado, e.Country,
+(
+	SELECT COUNT(*) FROM Orders o WHERE o.EmployeeID = e.EmployeeID
+    AND YEAR(o.OrderDate) = 1995 AND MONTH(o.OrderDate) >= 10
+    
+) AS ORDENES
+FROM Employees e;
+
