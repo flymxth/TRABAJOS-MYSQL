@@ -1,0 +1,39 @@
+@import url('https://fonts.googleapis.com/css2?family=Ropa+Sans:ital@0;1&display=swap');
+
+.Titulo {
+    text-align: center;
+    font-family: 'Ropa Sans', sans-serif;
+}
+
+.Datos {
+    margin: 20px;
+    border-radius: 10px;
+    overflow: hidden;
+    background: #fff;
+    box-shadow: 1px 1px 20px rgba(0,0,0,0.2);
+    cursor: default;
+    transition: all 400ms ease;
+    margin-inline: 400px;
+    text-align: center;
+    padding: 30px;
+    margin-block: 50px;
+    font-family: 'Ropa Sans', sans-serif;
+}
+
+.codigo {
+    font-family: 'Ropa Sans', sans-serif;
+    margin-inline: 20px;
+}
+
+.tittle {
+    text-align: center;
+    font-family: 'Ropa Sans', sans-serif;
+}
+
+.button {
+    background-color: black;
+    color: #fff;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    font-size: 15px;
+}
